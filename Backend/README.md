@@ -165,3 +165,154 @@ Send a JSON object in the following format:
 - The `email` and `password` must match an existing user.
 - The returned `token` can be used for authenticated requests.
 
+---
+
+# User Profile API Documentation
+
+## Endpoint
+
+`GET /users/profile`
+
+---
+
+## Description
+
+Retrieves the authenticated user's profile information. Requires a valid JWT token in the `Authorization` header or as a cookie.
+
+---
+
+## Request
+
+- **Headers:**  
+  - `Authorization: Bearer <jwt_token>`  
+  or  
+  - Cookie: `token=<jwt_token>`
+
+---
+
+## Responses
+
+### Success
+
+- **Status Code:** `200 OK`
+- **Body:**
+    ```json
+    {
+      "_id": "user_id",
+      "fullname": {
+        "firstname": "John",
+        "lastname": "Doe"
+      },
+      "email": "john@example.com"
+      // ...other user fields
+    }
+    ```
+
+### Authentication Error
+
+- **Status Code:** `401 Unauthorized`
+- **Body:**
+    ```json
+    {
+      "error": "Access denied. No token provided"
+    }
+    ```
+    or
+    ```json
+    {
+      "error": "Unauthorized. Token has been logged out"
+    }
+    ```
+    or
+    ```json
+    {
+      "error": "Unauthorized. Invalid token"
+    }
+    ```
+
+### Server Error
+
+- **Status Code:** `500 Internal Server Error`
+- **Body:**
+    ```json
+    {
+      "error": "Internal server error"
+    }
+    ```
+
+---
+
+# User Logout API Documentation
+
+## Endpoint
+
+`GET /users/logout`
+
+---
+
+## Description
+
+Logs out the authenticated user by blacklisting their JWT token and clearing the authentication cookie. Requires a valid JWT token in the `Authorization` header or as a cookie.
+
+---
+
+## Request
+
+- **Headers:**  
+  - `Authorization: Bearer <jwt_token>`  
+  or  
+  - Cookie: `token=<jwt_token>`
+
+---
+
+## Responses
+
+### Success
+
+- **Status Code:** `200 OK`
+- **Body:**
+    ```json
+    {
+      "message": "Logged out successfully"
+    }
+    ```
+
+### Authentication Error
+
+- **Status Code:** `401 Unauthorized`
+- **Body:**
+    ```json
+    {
+      "error": "Access denied. No token provided"
+    }
+    ```
+    or
+    ```json
+    {
+      "error": "Unauthorized. Token has been logged out"
+    }
+    ```
+    or
+    ```json
+    {
+      "error": "Unauthorized. Invalid token"
+    }
+    ```
+
+### Server Error
+
+- **Status Code:** `500 Internal Server Error`
+- **Body:**
+    ```json
+    {
+      "error": "Internal server error"
+    }
+    ```
+
+---
+
+## Notes
+
+- After logout, the token is blacklisted and cannot be used again.
+- The authentication cookie is cleared on logout.
+

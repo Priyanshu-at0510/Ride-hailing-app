@@ -1,6 +1,7 @@
 const userModel=require('../models/user.model');
 const userService=require("../services/user.service")
 const {validationResult}=require('express-validator');
+const blacklistTokenModel=require('../models/blacklistToken.model');
 
 module.exports.registerUser=async (req,res,next)=>{
     try {
@@ -66,6 +67,18 @@ module.exports.loginUser=async(req,res,next)=>{
 module.exports.getUserProfile=async(req,res,next)=>{
     try {
         return res.status(200).json(req.user);
+    } catch (error) {
+        return res.status(500).json({error:"Internal server error"});
+    }
+}
+
+module.exports.logoutUser=async(req,res,next)=>{
+    try {
+        res.clearCookie('token');
+        const token = req.cookies?.token || req.headers?.authorization?.split(' ')[1];
+        await blacklistTokenModel.create({token});
+        return res.status(200).json({message:"Logged out successfully"});
+
     } catch (error) {
         return res.status(500).json({error:"Internal server error"});
     }
