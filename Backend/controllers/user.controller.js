@@ -30,7 +30,7 @@ module.exports.registerUser=async (req,res,next)=>{
 
 }
 
-module.exports.loginUser=async(req,res)=>{
+module.exports.loginUser=async(req,res,next)=>{
     try {
         const errors=validationResult(req);
         if(!errors.isEmpty()){
@@ -46,13 +46,27 @@ module.exports.loginUser=async(req,res)=>{
             return res.status(401).json({error:"Invalid email or password"});
         }
         const token=user.generateAuthToken();
+        res.cookie('token',token,{
+            httpOnly:true,
+            secure:process.env.NODE_ENV==='production',
+            sameSite:'strict',
+            maxAge:24*60*60*1000 //1 day
+        });
         res.status(200).json({
             token,
             user
-        })
+        });
 
     } catch (error) {
         console.error(error);
+        return res.status(500).json({error:"Internal server error"});
+    }
+}
+
+module.exports.getUserProfile=async(req,res,next)=>{
+    try {
+        return res.status(200).json(req.user);
+    } catch (error) {
         return res.status(500).json({error:"Internal server error"});
     }
 }
