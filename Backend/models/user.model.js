@@ -1,6 +1,6 @@
 const mongoose=require('mongoose');
 const bcrypt=require('bcrypt');
-const jwt=require('jsonwebtoken ');
+const jwt=require('jsonwebtoken');
 const userSchema=new mongoose.Schema({
     fullname:{
         firstname:{
@@ -14,7 +14,7 @@ const userSchema=new mongoose.Schema({
             minLength:[3,'Last name must be atleast 3 character long'],
         }
     },
-    emai:{
+    email:{
         type:String,
         required:true,
         unique:true,
@@ -26,7 +26,7 @@ const userSchema=new mongoose.Schema({
     },
     socketId:{
         type:String,
-        required:true
+        required:false
     }
 });
 userSchema.methods.generateAuthToken=function(){
