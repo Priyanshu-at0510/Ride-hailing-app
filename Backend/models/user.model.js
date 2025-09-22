@@ -33,7 +33,7 @@ userSchema.methods.generateAuthToken=function(){
     const token=jwt.sign({_id:this.id},process.env.JWT_SECRET);
     return token;
 }
-userSchema.methods.comparePassword=async function(){
+userSchema.methods.comparePassword=async function(password){
     return await bcrypt.compare(password,this.password);
 }
 
