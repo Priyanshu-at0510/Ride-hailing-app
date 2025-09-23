@@ -75,7 +75,6 @@ module.exports.getUserProfile=async(req,res,next)=>{
         return res.status(500).json({error:"Internal server error"});
     }
 }
-
 module.exports.logoutUser=async(req,res,next)=>{
     try {
         res.clearCookie('token');
