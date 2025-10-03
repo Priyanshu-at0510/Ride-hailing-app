@@ -1,21 +1,24 @@
 import React from 'react'
 
-const WaitingForDriver = (props) => {
+const RidePopUp = (props) => {
   return (
     <div>
-         <h5 onClick={()=>{
-            props.waitingForDriver(false);
+        <h5 onClick={()=>{
+            props.setConfirmRide(false);
           }} className='p-1 text-center absolute top-0 w-[93%]'><i className="ri-arrow-down-wide-line text-3xl text-gray-200 pt-14"></i></h5>
-          <div className='flex items-center justify-between'>
-            <img className='h-15' src="https://www.uber-assets.com/image/upload/f_auto,q_auto:eco,c_fill,h_538,w_956/v1646663215/assets/6e/e50c1b-2174-4c97-83a1-bfd4544689d0/original/uberX.png"/>
-            <div className='text-right'>
-              <h2 className='text-lg font-medium'>Prateek </h2>
-              <h4 className='text-xl font-semibold -mt-1 -mb-1'>MP04 AB124</h4>
-              <p className='text-sm text-gray-600 '>Maruti Suzuki Alto</p>
+          <h3 className='text-3xl font-semibold mb-5'>New Ride Available!</h3>
+          <div className='flex items-center justify-between bg-yellow-400 rounded-lg p-3 mt-4'>
+            <div className='flex items-center gap-3 '>
+                <img className='h-12 w-12 rounded-full object-cover' src="https://i.pinimg.com/236x/af/26/28/af26280b0ca305be47df0b799ed1b12b.jpg" />
+                <h2 className='text-xl font-medium'>Ishani</h2>
             </div>
+            <div className='flex gap-2 items-center'>
+                <i className="text-xl font-medium ri-pin-distance-line"></i>
+                <h5 className='text-2xl font-semibold'>2.8 KM</h5>
+            </div>
+            
           </div>
           <div className='flex gap-2 flex-col justify-between items-center'>
-            
             <div className='w-full mt-5 '>
               <div className='flex gap-5 items-center p-3 border-b-2'>
                 <i className="text-lg ri-map-pin-2-fill"></i>
@@ -39,9 +42,15 @@ const WaitingForDriver = (props) => {
                 </div>
               </div>
             </div>
+            <button onClick={()=>{
+              
+            }} className=' mt-5 bg-green-600 text-white w-full p-3 rounded-lg font-medium'>Confirm</button>
+            <button onClick={()=>{
+
+            }} className=' mt-1 bg-gray-300 text-gray-700 w-full p-3 rounded-lg font-medium'>Ignore</button>
           </div>
     </div>
   )
 }
 
-export default WaitingForDriver
+export default RidePopUp;

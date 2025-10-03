@@ -166,7 +166,7 @@ const Home = () => {
             <LookingForDriver setVehicleFound={setVehicleFound}/>
       </div>
       <div ref={WaitingForDriverRef} className='fixed z-10 bottom-0 px-3 py-6 pt-12 bg-white w-full translate-y-full '>
-            <WaitingForDriver setWaitingForDriver={setWaitingForDriver} />
+            <WaitingForDriver waitingForDriver={waitingForDriver} setWaitingForDriver={setWaitingForDriver} />
       </div>
 
     </div>
